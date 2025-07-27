@@ -1,0 +1,43 @@
+<!-- label_app/templates/create_label.html -->
+{% extends 'base.html' %}
+
+{% block title %}Create Shipping Label{% endblock %}
+
+{% block main_block %}
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .form-card {
+      max-width: 600px;
+      margin: 50px auto;
+      border-radius: 12px;
+    }
+    .form-label {
+      font-weight: 500;
+    }
+    .btn-primary {
+      width: 100%;
+      border-radius: 8px;
+    }
+  </style>
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+    <div class="card form-card shadow p-4 bg-white">
+      <h4 class="mb-4 text-center text-primary">Create Shipping Label</h4>
+
+      {% for field in form %}
+        <div class="mb-3">
+          <label class="form-label">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}
+            <div class="text-danger small">{{ field.errors }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      <button type="submit" class="btn btn-primary mt-3">Generate Label</button>
+    </div>
+  </form>
+{% endblock %}

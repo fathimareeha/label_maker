@@ -1,0 +1,56 @@
+# Python bytecode and cache
+
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Environment variables
+.env
+
+# SQLite (only if ever used locally)
+# db.sqlite3
+
+# Media and static files
+media/
+staticfiles/
+
+# Logs
+*.log
+
+# SQL dumps
+*.sql
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDE/editor folders
+.vscode/
+.idea/
+
+# Node.js (if using React or npm for frontend)
+node_modules/
+build/
+dist/
+
+# Pytest cache
+.pytest_cache/
+
+# Django migrations (optional: keep if needed in repo)
+**/migrations/
+!**/migrations/__init__.py
+
+# Migrations (optional – only if you don’t want to track them)
+# **/migrations/
+
+# Coverage reports
+htmlcov/
+coverage.xml
+*.cover
+*.py,cover
+
+# MyPy and other tools
+.mypy_cache/
+.pyre/

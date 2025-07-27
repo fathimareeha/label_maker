@@ -1,0 +1,39 @@
+<!-- templates/update_label.html -->
+{% extends 'base.html' %}
+
+{% block title %}Update Label Status{% endblock %}
+
+{% block main_block %}
+  <div class="card shadow p-4 mx-auto" style="max-width: 600px;">
+    <h4 class="mb-4 text-primary text-center">Update Status for {{ label.tracking_id }}</h4>
+
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="status" class="form-label">Select Status</label>
+        <select name="status" id="status" class="form-select">
+          {% for value, display in choices %}
+            <option value="{{ value }}" {% if value == label.status %}selected{% endif %}>{{ display }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Update</button>
+    </form>
+  </div>
+
+  <hr class="my-5">
+
+  <div class="card shadow p-4 mx-auto" style="max-width: 700px;">
+    <h5 class="mb-3">Status History</h5>
+    <ul class="list-group">
+      {% for history in label.status_history.all %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span>{{ history.status }}</span>
+          <small class="text-muted">{{ history.updated_at|date:"Y-m-d H:i" }}</small>
+        </li>
+      {% empty %}
+        <li class="list-group-item text-muted">No history available.</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
