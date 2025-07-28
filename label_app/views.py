@@ -22,6 +22,7 @@ from barcode.writer import ImageWriter
 import random
 from django.views.generic import TemplateView
 from django.core.files import File
+from io import BytesIO
 
 class HomePageView(TemplateView):
     template_name = 'base.html'
@@ -110,18 +111,18 @@ class LabelCreateView(CreateView):
         pdf_filename = f"{label.tracking_id}.pdf"
         pdf_dir = os.path.join(settings.MEDIA_ROOT, 'label')
         os.makedirs(pdf_dir, exist_ok=True) 
-        pdf_path = os.path.join(pdf_dir, pdf_filename)
-        html.write_pdf(target=pdf_path)
+        pdf_buffer = BytesIO()
+        html.write_pdf(target=pdf_buffer)
+        pdf_buffer.seek(0)
 
-        # ✅ Save PDF path to model
-        with open(pdf_path, 'rb') as f:
-            label.pdf_file.save(f'label/{pdf_filename}', File(f), save=True)
+        # ✅ Save PDF to model (avoids filesystem collision)
+        label.pdf_file.save(pdf_filename, File(pdf_buffer), save=True)
 
         # ✅ Serve PDF
-        pdf_file = open(pdf_path, 'rb')
-        return FileResponse(pdf_file, content_type='application/pdf')
-    
-    
+        pdf_buffer.seek(0)
+        return FileResponse(pdf_buffer, content_type='application/pdf', filename=pdf_filename)
+            
+            
 class LabelListView(ListView):
     model = ShippingLabel
     template_name = 'label_list.html'
