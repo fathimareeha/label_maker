@@ -176,16 +176,22 @@ class UpdateLabelStatusView(View):
     def post(self, request, pk):
         label = get_object_or_404(ShippingLabel, pk=pk)
         new_status = request.POST.get('status')
+        note = request.POST.get('note', '').strip()  # ✅ Extract note from form
 
+        # ✅ Update note whether or not status changed
+        label.note = note
+
+        # ✅ Update status and save history if changed
         if new_status and new_status != label.status:
             label.status = new_status
             label.save()
-
-            # ✅ Add status to history
             LabelStatusHistory.objects.create(label=label, status=new_status)
+        else:
+            label.save()  # Save in case only note was changed
 
         return redirect('label_list')
-    
+
+        
     
 class LabelStatusHistoryView(View):
     def get(self, request, pk):

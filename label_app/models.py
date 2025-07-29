@@ -50,6 +50,8 @@ class ShippingLabel(models.Model):
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='Shipment Booked')
     
     pdf_file = models.FileField(upload_to='label/', blank=True, null=True)
+    
+    note = models.TextField(blank=True)
 
 
 

@@ -17,6 +17,10 @@
           {% endfor %}
         </select>
       </div>
+      <div class="mb-3">
+        <label for="note" class="form-label">Note (optional)</label>
+        <textarea name="note" id="note" class="form-control" rows="3" placeholder="Add internal note...">{{ label.note }}</textarea>
+      </div>
       <button type="submit" class="btn btn-primary w-100">Update</button>
     </form>
   </div>
@@ -35,5 +39,12 @@
         <li class="list-group-item text-muted">No history available.</li>
       {% endfor %}
     </ul>
-  </div>
+  </div><div class="card shadow p-4 mx-auto mt-4" style="max-width: 700px;">
+  <h5 class="mb-3">Latest Note</h5>
+  {% if label.note %}
+    <p>{{ label.note }}</p>
+  {% else %}
+    <p class="text-muted">No note available for this label.</p>
+  {% endif %}
+</div>
 {% endblock %}

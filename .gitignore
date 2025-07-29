@@ -1,6 +1,6 @@
 # Python bytecode and cache
 
-__pycache__/
+**/__pycache__/
 *.py[cod]
 *.pyo
 
@@ -11,7 +11,9 @@ __pycache__/
 # db.sqlite3
 
 # Media and static files
-media/
+/media/
+/media/*
+
 staticfiles/
 
 # Logs
