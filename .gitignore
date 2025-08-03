@@ -6,6 +6,7 @@
 
 # Environment variables
 .env
+/env
 
 # SQLite (only if ever used locally)
 # db.sqlite3
