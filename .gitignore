@@ -42,8 +42,6 @@ dist/
 .pytest_cache/
 
 # Django migrations (optional: keep if needed in repo)
-**/migrations/
-!**/migrations/__init__.py
 
 # Migrations (optional – only if you don’t want to track them)
 # **/migrations/

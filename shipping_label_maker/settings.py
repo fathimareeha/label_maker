@@ -139,3 +139,4 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
+ALLOWED_HOSTS = ['https://web-production-a7f74.up.railway.app/']
