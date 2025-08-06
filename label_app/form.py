@@ -4,7 +4,7 @@ from .models import ShippingLabel
 class ShippingLabelForm(forms.ModelForm):
     class Meta:
         model = ShippingLabel
-        exclude = ['tracking_id', 'barcode_image', 'status','pdf_file']
+        exclude = ['tracking_id', 'barcode_image', 'status','pdf_file','note']
         widgets = {
             'sender_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Sender Name'}),
             'sender_address': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Sender Address', 'rows': 3}),

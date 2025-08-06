@@ -198,8 +198,6 @@ class LabelStatusHistoryView(View):
         label = get_object_or_404(ShippingLabel, pk=pk)
         return render(request, 'status_history.html', {'label': label})
     
-    
-    
 
 
 class TrackingSearchView(View):
