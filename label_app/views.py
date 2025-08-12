@@ -221,7 +221,7 @@ class TrackingSearchView(View):
 def external_tracking_redirect(request):
     tracking_id = request.GET.get('tracking_id', '').strip()
     try:
-        label = ShippingLabel.objects.get(tracking_id=tracking_id)
+        label = ShippingLabel.objects.get(tracking_id__iexact=tracking_id)
         return redirect('label-status-history', pk=label.pk)
     except ShippingLabel.DoesNotExist:
         return redirect('/track/not-found/')
