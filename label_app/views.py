@@ -215,8 +215,8 @@ class TrackingSearchView(View):
             return render(request, self.template_name, {
                 'error': f'No label found for tracking number: {tracking_number}'
             })
-            
-            
+   
+   
             
 def external_tracking_redirect(request):
     tracking_id = request.GET.get('tracking_id', '').strip()
@@ -225,3 +225,8 @@ def external_tracking_redirect(request):
         return redirect('label-status-history', pk=label.pk)
     except ShippingLabel.DoesNotExist:
         return redirect('/track/not-found/')
+
+
+
+
+
