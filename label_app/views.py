@@ -23,6 +23,7 @@ import random
 from django.views.generic import TemplateView
 from django.core.files import File
 from io import BytesIO
+from django.urls import reverse
 
 class HomePageView(TemplateView):
     template_name = 'base.html'
@@ -222,10 +223,9 @@ def external_tracking_redirect(request):
     tracking_id = request.GET.get('tracking_id', '').strip()
     try:
         label = ShippingLabel.objects.get(tracking_id__iexact=tracking_id)
-        return redirect('label-status-history', pk=label.pk)
+        return redirect(reverse('label-status-history', kwargs={'pk': label.pk}))
     except ShippingLabel.DoesNotExist:
         return redirect('/track/not-found/')
-
 
 
 
