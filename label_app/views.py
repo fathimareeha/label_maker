@@ -217,16 +217,26 @@ class TrackingSearchView(View):
                 'error': f'No label found for tracking number: {tracking_number}'
             })
    
-   
+import re  
             
 def external_tracking_redirect(request):
-    tracking_id = request.GET.get('tracking_id', '').strip()
+    # Get tracking ID from GET parameter
+    tracking_id = request.GET.get('tracking_id', '')
+    
+    # ✅ Remove leading/trailing whitespace and tabs
+    tracking_id = tracking_id.strip()
+    
+    # ✅ Remove any non-alphanumeric characters to clean input
+    tracking_id = re.sub(r'[^A-Za-z0-9]', '', tracking_id)
+    
+    # Attempt to find the label (case-insensitive)
     try:
         label = ShippingLabel.objects.get(tracking_id__iexact=tracking_id)
+        # Redirect to status history page
         return redirect(reverse('label-status-history', kwargs={'pk': label.pk}))
     except ShippingLabel.DoesNotExist:
+        # Optional: redirect to a "not found" page or show error
         return redirect('/track/not-found/')
-
 
 
 
