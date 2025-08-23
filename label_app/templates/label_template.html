@@ -71,6 +71,15 @@
       Actual Box Weight: {{ label.actual_weight }} kg
     </div>
 
+    <div class="section">
+      Origin: {{ label.origin }} kg
+    </div>
+
+    <div class="section">
+      Destination: {{ label.destination }} kg
+    </div>
+
+
     <!-- Barcode -->
     <div class="barcode">
       {% if barcode_url %}
@@ -79,11 +88,8 @@
       <div><strong>{{ label.tracking_id }}</strong></div>
     </div>
 
-    <!-- Footer -->
-    <div class="footer">
-      ARAMEX <br>
-      PARCEL NO. {{ label.tracking_id }} / 01
-    </div>
+   
+    
   </div>
 </body>
 </html>
