@@ -128,12 +128,23 @@ class LabelListView(ListView):
     model = ShippingLabel
     template_name = 'label_list.html'
     context_object_name = 'labels'
-    ordering = ['-id']  # show latest first
-    
+    ordering = ['-id']  # latest first
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        status = self.request.GET.get("status")  # get status from query params
+        if status and status != "all":
+            queryset = queryset.filter(status=status)
+        return queryset
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['MEDIA_URL'] = settings.MEDIA_URL
+        # pass available statuses to template
+        context['statuses'] = ShippingLabel.objects.values_list('status', flat=True).distinct()
+        context['selected_status'] = self.request.GET.get("status", "all")
         return context
+
     
 class LabelUpdateView(UpdateView):
     model = ShippingLabel

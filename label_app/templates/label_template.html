@@ -46,7 +46,7 @@
     <div class="header">
       <div><strong>{{ label.booking_date }}</strong></div>
       <div><strong>{{ label.service }}</strong></div>
-      <div><strong>1/1</strong></div>
+      <div><strong>{{label.number_of_box}}</strong></div>
     </div>
 
     <!-- Consignee -->
@@ -54,7 +54,6 @@
       <strong>CONSIGNEE</strong>
       {{ label.receiver_name }} <br>
       {{ label.receiver_address }} <br>
-      {{ label.destination }} <br>
      
     </div>
 
@@ -63,7 +62,6 @@
       <strong>SHIPPER</strong>
       {{ label.sender_name }} <br>
       {{ label.sender_address }} <br>
-      {{ label.origin }}
     </div>
 
     <!-- Weight -->
@@ -71,11 +69,11 @@
       Actual Box Weight: {{ label.actual_weight }} kg
     </div>
 
-    <div class="section">
+    <div class="section" style="font-weight: 500;">
       Origin: {{ label.origin }}
     </div>
 
-    <div class="section">
+    <div class="section" style="font-weight: 500;">
       Destination: {{ label.destination }}
     </div>
 
@@ -90,7 +88,7 @@
 <div class="footer">
       <div class="company">FASTBOX</div>
       <div class="website">www.fastboxlogistics.in</div>
-      <div class="contact">8281071113</div>
+      <div class="contact">+91 8281071113   +91 7012624745</div>
     </div>
    
     

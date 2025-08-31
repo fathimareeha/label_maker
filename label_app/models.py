@@ -74,3 +74,4 @@ class LabelStatusHistory(models.Model):
 
     def __str__(self):
         return f"{self.label.tracking_id} - {self.status} at {self.updated_at.strftime('%Y-%m-%d %H:%M')}"
+
