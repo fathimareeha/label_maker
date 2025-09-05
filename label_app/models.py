@@ -45,6 +45,16 @@ class ShippingLabel(models.Model):
         ('Cancelled','Cancelled'),
         ('Shipment on Hold - Pending Shipping Charge','Shipment on Hold - Pending Shipping Charge'),
         ('Shipment on Hold - Awaiting Customs Instructions','Shipment on Hold - Awaiting Customs Instructions'),
+        ('Shipment received in  COK origin','Shipment received in  COK origin'),
+        ('Shipment received in MUM origin','Shipment received in MUM origin'),
+        ('Shipment received in DEL origin','Shipment received in DEL origin'),
+        ('Forward to COK hub','Forward to COK hub'),
+        ('Forward to MUM hub','Forward to MUM hub'),
+        ('Forward to DEL hub','Forward to DEL hub'),
+        ('Handover to Aramex','Handover to Aramex'),
+        ('Handover to DHL','Handover to DHL'),
+        ('Handover to FedEx','Handover to FedEx'),
+        ('Handover to UPS','Handover to UPS')
         
     ]
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='Shipment Booked')
