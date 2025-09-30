@@ -40,11 +40,12 @@
   </style>
 </head>
 <body>
+    {% load tz %}
   <div class="label">
 
     <!-- Header -->
     <div class="header">
-<div><strong>{{ label.booking_date|localtime }}</strong></div>
+<div><strong>{% localtime on %}{{ label.booking_date }}{% endlocaltime %}</strong></div>
       <div><strong>{{ label.service }}</strong></div>
       <div><strong>{{label.number_of_box}}</strong></div>
     </div>
