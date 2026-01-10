@@ -182,7 +182,7 @@ class UpdateLabelStatusView(View):
         label = get_object_or_404(ShippingLabel, pk=pk)
         return render(request, 'update_status.html', {
             'label': label,
-            'choices': ShippingLabel.STATUS_CHOICES
+            
         })
 
     def post(self, request, pk):
