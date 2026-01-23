@@ -27,7 +27,7 @@
           <th scope="col">Sender</th>
           <th scope="col">Receiver</th>
           <th scope="col">Status</th>
-          <th scope="col">Barcode</th>
+          <th scope="col">Destination</th>
           <th scope="col">Booking Date</th>
           <th scope="col">PDF</th>
           <th scope="col">Edit</th>
@@ -45,11 +45,7 @@
             <span class="badge bg-info text-dark">{{ label.status }}</span>
           </td>
           <td>
-            {% if label.barcode_image %}
-              <img src="{{ label.barcode_image.url }}" width="120" alt="Barcode">
-            {% else %}
-              <span class="text-muted">No barcode</span>
-            {% endif %}
+            {{ label.destination }}
           </td>
           <td>{{ label.booking_date }}</td>
           <td>
