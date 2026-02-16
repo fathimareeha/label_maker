@@ -28,6 +28,9 @@ from django.urls import reverse
 class HomePageView(TemplateView):
     template_name = 'base.html'
 
+class HomeView(View):
+    def get(self, request):
+        return render(request, "home.html")
 
 class LoginView(View):
     def get(self,request,*args,**kwargs):
@@ -43,7 +46,7 @@ class LoginView(View):
             user=authenticate(username=uname,password=pword)
             if user:
                 login(request,user)
-                return redirect("create-label")
+                return redirect("home_page")
         
         messages.error(request,"invalid credential!")
         return render(request,"login.html",{"form":form_instance})

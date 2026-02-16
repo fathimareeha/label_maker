@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', views.LoginView.as_view(), name='login'),
     path('home',views.HomePageView.as_view(),name='home'),
+    path('home_page',views.HomeView.as_view(),name='home_page'),
     path('label_create', views.LabelCreateView.as_view(), name='create-label'),
     path('label_list',views.LabelListView.as_view(),name='label_list'),
     path('update_label/<int:pk>',views.UpdateLabelStatusView.as_view(),name='update-label-status'),

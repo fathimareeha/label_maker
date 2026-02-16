@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config
+import os
+from decouple import Config, RepositoryEnv
 
 
 
@@ -19,14 +20,25 @@ from decouple import config
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+
+
+# Decide which .env to use
+# If DJANGO_ENV=PRODUCTION is set, use production env
+if os.getenv('DJANGO_ENV') == 'PRODUCTION':
+    env_path = BASE_DIR / ".env"
+else:
+    env_path = BASE_DIR / ".env.local"
+
+config = Config(RepositoryEnv(env_path))
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('DJANGO_SECRET_KEY')
+SECRET_KEY = Config('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
 
 ALLOWED_HOSTS = ['*']
@@ -78,16 +90,41 @@ WSGI_APPLICATION = 'shipping_label_maker.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': config('DB_NAME'),
+#         'USER': config('DB_USER'),
+#         'PASSWORD': config('DB_PASSWORD'),
+#         'HOST': config('DB_HOST'),
+#         'PORT': config('DB_PORT'),
+#     }
+# }
+
+
+# Use PostgreSQL in production, SQLite in local dev
+if DEBUG:
+    # Local development → SQLite
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    # Production → PostgreSQL
+    DATABASES = {
+        'default': {
+            'ENGINE': Config('DB_ENGINE'),
+            'NAME': Config('DB_NAME'),
+            'USER': Config('DB_USER'),
+            'PASSWORD': Config('DB_PASSWORD'),
+            'HOST': Config('DB_HOST'),
+            'PORT': Config('DB_PORT'),
+        }
+    }
+
+
 
 # DATABASES = {
 #     'default': {
@@ -131,8 +168,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",  # Project-level static folder
+]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

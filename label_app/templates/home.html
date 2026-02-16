@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home_page.css' %}">
+{% endblock %}
+{% block title %}Shipping Label Maker{% endblock %}
+
+{% block main_block %}
+
+<!-- Full-screen background -->
+<div class="shipping-bg d-flex flex-column justify-content-center align-items-center">
+
+  <!-- Page Heading -->
+  <div class="text-center mb-5">
+    <h1 class="fw-bold display-4 main-title">📦 Shipping Label Maker</h1>
+    <p class="lead subtitle">Create and manage shipping labels easily</p>
+  </div>
+
+  <!-- Action Cards -->
+  <div class="row justify-content-center g-4 w-100 px-3" style="max-width: 900px;">
+
+    <!-- Create Label Card -->
+
+    <div class="col-md-5">
+      <div class="card shadow h-100 text-center card-hover">
+        <div class="card-body">
+          <div class="mb-3 fs-1 text-primary">➕</div>
+          <h5 class="card-title">Create Label</h5>
+          <p class="card-text text-muted">Generate a new shipping label with sender and receiver details.</p>
+          <a href="{% url 'create-label' %}" class="btn btn-primary w-100">Create Label</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- List Labels Card -->
+    <div class="col-md-5">
+      <div class="card shadow h-100 text-center card-hover">
+        <div class="card-body">
+          <div class="mb-3 fs-1 text-success">📋</div>
+          <h5 class="card-title">List Labels</h5>
+          <p class="card-text text-muted">View, track, and manage all created shipping labels.</p>
+          <a href="{% url 'label_list' %}" class="btn btn-success w-100">View Labels</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
